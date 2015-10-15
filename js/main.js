@@ -24,4 +24,9 @@ window.onload = function () {
             document.getElementById("message").value = "";
         }
     };
+
+    document.getElementById("clear").onclick = function(){
+        document.getElementById("response").innerHTML = "";
+    }
+
 }
