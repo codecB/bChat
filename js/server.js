@@ -20,6 +20,18 @@ app.get('/', function(request, response) {
     response.redirect("/html/index.html");
 });
 
+app.get('/html', function(request, response) {
+    response.redirect("/html/index.html");
+});
+
+app.get('/img', function(request, response) {
+    response.redirect("/html/index.html");
+});
+
+app.get('/js', function(request, response) {
+    response.redirect("/html/index.html");
+});
+
 app.get('*', function(request, response) {
     handleRequest(request, response);
 });
@@ -33,9 +45,6 @@ function handleRequest(request, response){
 
     // Read the requested file content from file system
     pathname = "/.."+ pathname;
-
-    //pathname="/../html/index.html";
-
     fs.readFile(pathname.substr(1), function (err, data) {
         if (err) {
             console.log(err);
@@ -60,8 +69,6 @@ var server = app.listen(port, function () {
     console.log("http server listening on %d", port);
 });
 
-
-
 var wss = new WebSocketServer({server: server});
 console.log("websocket server created");
 
@@ -76,7 +83,7 @@ wss.on("connection", function(ws) {
         broadcast(message);
     });
     //ws.send('server: you are connected as client no.'+(clients.length));
-    broadcast("server: client no."+clients.length+ " has logged in");
+    //broadcast("server: client no."+clients.length+ " has logged in");
 });
 
 function broadcast (message) {

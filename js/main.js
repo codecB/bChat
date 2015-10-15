@@ -1,19 +1,20 @@
-var ws = new WebSocket("ws://172.18.10.163:4080/", "protocolOne");
+var ws = new WebSocket("ws://"+window.location.hostname+":4080/", "protocolOne");
 
 ws.onopen = function (event) {
     //ws.send(JSON.stringify({name:document.getElementById("name").value}));
 };
 
 ws.onmessage = function (event) {
-    document.getElementById("response").innerHTML += event.data +"<br>";
-    //console.log(event.data);
+    var elem = document.getElementById('content');
+    elem.innerHTML += event.data +"<br>";//update chat history
+    elem.scrollTop = elem.scrollHeight; //scroll to bottom
 }
 
 window.onload = function () {
     document.getElementById("message").onkeyup = function (event) {
         if(event.keyCode == 13){//enter key pressed
 
-            var name = document.getElementById("name").value.trim();
+            var name = document.getElementById("myname").value.trim();
             if (name == ''){
                 alert("Must specify your name.");
                 return;
@@ -24,12 +25,25 @@ window.onload = function () {
 
             ws.send(currentTime + " "+name+": " +message);
 
-            //document.getElementById("response").innerHTML += currentTime + " me: " + document.getElementById("message").value +"<br>";
+            //document.getElementById("content").innerHTML += currentTime + " me: " + document.getElementById("message").value +"<br>";
             document.getElementById("message").value = "";
         }
     };
 
     document.getElementById("clear").onclick = function(){
-        document.getElementById("response").innerHTML = "";
+        document.getElementById("content").innerHTML = "";
+    }
+
+    document.getElementById("b_login").onclick = function(){
+        var username = document.getElementById("name").value.trim();
+        if(username == ''){
+            alert("Must specify your name.");
+            return;
+        }
+        document.getElementById("myname").value = username;
+
+        document.getElementById("login").style.display = 'none';
+        document.getElementById("chatroom").style.display = 'block';
+
     }
 }
