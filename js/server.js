@@ -17,7 +17,7 @@ var clients = [];
 // Of course you could send the file's content with fs.readFile to avoid
 // using redirects
 app.get('/', function(request, response) {
-    jsresponse.redirect("/html/index.html");
+    response.redirect("/html/index.html");
 });
 
 app.get('*', function(request, response) {
