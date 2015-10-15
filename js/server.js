@@ -11,7 +11,18 @@ var app = express();
 var port = process.env.PORT || 4080;
 var clients = [];
 
-app.use(express.static(__dirname + "/"));
+//app.use(express.static(__dirname + "/"));
+
+// Catch everything else and redirect to /index.html
+// Of course you could send the file's content with fs.readFile to avoid
+// using redirects
+app.get('/', function(request, response) {
+    jsresponse.redirect("/html/index.html");
+});
+
+app.get('*', function(request, response) {
+    handleRequest(request, response);
+});
 
 function handleRequest(request, response){
     // Parse the request containing file name
@@ -22,6 +33,9 @@ function handleRequest(request, response){
 
     // Read the requested file content from file system
     pathname = "/.."+ pathname;
+
+    //pathname="/../html/index.html";
+
     fs.readFile(pathname.substr(1), function (err, data) {
         if (err) {
             console.log(err);
@@ -42,10 +56,11 @@ function handleRequest(request, response){
     });
 }
 
-var server = http.createServer(handleRequest);
-server.listen(port);
+var server = app.listen(port, function () {
+    console.log("http server listening on %d", port);
+});
 
-console.log("http server listening on %d", port);
+
 
 var wss = new WebSocketServer({server: server});
 console.log("websocket server created");

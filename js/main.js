@@ -1,4 +1,4 @@
-var ws = new WebSocket("ws://127.0.0.1:4080/", "protocolOne");
+var ws = new WebSocket("ws://172.18.10.163:4080/", "protocolOne");
 
 ws.onopen = function (event) {
     //ws.send(JSON.stringify({name:document.getElementById("name").value}));
@@ -13,7 +13,11 @@ window.onload = function () {
     document.getElementById("message").onkeyup = function (event) {
         if(event.keyCode == 13){//enter key pressed
 
-            var name = document.getElementById("name").value;
+            var name = document.getElementById("name").value.trim();
+            if (name == ''){
+                alert("Must specify your name.");
+                return;
+            }
             var message = document.getElementById("message").value;
             var date = new Date();
             var currentTime = ("0" + date.getHours()).slice(-2)+":"+("0" + date.getMinutes()).slice(-2)+":"+("0" + date.getSeconds()).slice(-2);
@@ -28,5 +32,4 @@ window.onload = function () {
     document.getElementById("clear").onclick = function(){
         document.getElementById("response").innerHTML = "";
     }
-
 }
