@@ -8,7 +8,7 @@
 </head>
 <body>
     <div>
-        <div id="login" hidden="hidden">
+        <div id="login" style="display:none;">
             <div id="l_name">What is your name?</div><br>
             <input type="text" id="name">
             <button id="b_login">Start Chat</button><br>
@@ -19,8 +19,9 @@
             <input type="text" id="myname" value="Anonymous"><br><br>
             I say: <input type="text" id="message" placeholder="Hit enter to send message"><br><br>
             Chat history:
-            <button id="clear">Clear</button><br><br>
-            <div id="content" style="width:600px;height: 300px;overflow:scroll;border:solid dimgrey;background-color: lightyellow;"></div>
+            <!-- define type="button" to be compatible with IE-->
+            <button id="clear" type="button">Clear</button><br><br>
+           <div id="content" style="width:600px;height: 300px;overflow:scroll;border:solid dimgrey;background-color: lightyellow;"></div>
         </div>
     </div>
 </body>
